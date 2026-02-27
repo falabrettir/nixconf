@@ -1,0 +1,76 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "logo": {
+    // Make sure this path is absolute!
+    "source": "/home/falabretti/.config/fastfetch/ascii/triangle.txt",
+    // Force the ASCII art to be Yellow (Gold)
+    "color": { "1": "yellow" }, 
+    "padding": {
+      "top": 2,
+      "right": 6
+    }
+  },
+  "display": {
+    "separator": " "
+  },
+  "modules": [
+    "break",
+    "break",
+    {
+      "type": "title",
+      "keyWidth": 10
+    },
+    "break",
+    {
+      "type": "os",
+      "key": " ",
+      "keyColor": "yellow"  // <--- Changed from "33" (Blue) to "yellow"
+    },
+    {
+      "type": "kernel",
+      "key": " ",
+      "keyColor": "yellow"
+    },
+    {
+      "type": "packages",
+      "format": "{} (nixpkgs)",
+      "key": " ",
+      "keyColor": "yellow"
+    },
+    {
+      "type": "shell",
+      "key": " ",
+      "keyColor": "yellow"
+    },
+    {
+      "type": "terminal",
+      "key": " ",
+      "keyColor": "yellow"
+    },
+    {
+      "type": "wm",
+      "key": " ",
+      "keyColor": "yellow"
+    },
+    {
+      "type": "uptime",
+      "key": " ",
+      "keyColor": "yellow"
+    },
+    {
+      "type": "media",
+      "key": "󰝚 ",
+      "keyColor": "yellow"
+    },
+    "break",
+    {
+      "type": "colors",
+      "block": {
+        "range": [1, 6],
+        "width": 3
+      }
+    },
+    "break",
+    "break"
+  ]
+}

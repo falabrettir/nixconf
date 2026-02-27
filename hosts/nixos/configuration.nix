@@ -134,9 +134,6 @@
     _JAVA_AWT_WM_NONREPARENTING = "1";
     XDG_CURRENT_DESKTOP = "Niri"; 
     XDG_SESSION_TYPE = "wayland";
-
-    EDITOR = "nvim";
-    VISUAL = "nvim";
     
   };
 

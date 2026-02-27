@@ -1,10 +1,15 @@
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   home.username = "falabretti";
   home.homeDirectory = "/home/falabretti";
-  
-  home.stateVersion = "24.11"; 
+
+  home.stateVersion = "24.11";
 
   xdg.configFile = {
     "nvim" = {
@@ -16,17 +21,17 @@
       source = ./dotfiles/noctalia;
       recursive = true;
     };
-    
+
+    "fastfetch" = {
+      source = ./dotfiles/fastfetch;
+      recursive = true;
+    };
     "alacritty/alacritty.toml".source = ./dotfiles/alacritty/alacritty.toml;
     "niri/config.kdl".source = ./dotfiles/niri/config.kdl;
-    "starship.toml".source = ./dotfiles/starship.toml; 
+    "starship.toml".source = ./dotfiles/starship.toml;
   };
 
   home.sessionVariables = {
-    NIXOS_OZONE_WL = "1";
-    _JAVA_AWT_WM_NONREPARENTING = "1";
-    XDG_CURRENT_DESKTOP = "Niri"; 
-    XDG_SESSION_TYPE = "wayland";
     EDITOR = "nvim";
     VISUAL = "nvim";
   };
@@ -46,13 +51,37 @@
     jetbrains.datagrip
     inputs.zen-browser.packages.${pkgs.system}.default # Zen from Flake input
 
-    neovim git wget curl unzip gzip
-    tmux ripgrep fd lazygit lazydocker fastfetch
-    gcc gnumake nodejs_22 python3 yarn cargo rustc
-    nixfmt-rfc-style statix nixd 
+    nautilus
 
-    wl-clipboard grim slurp libnotify mako
-    xwayland-satellite 
+    neovim
+    git
+    wget
+    curl
+    unzip
+    gzip
+    tmux
+    ripgrep
+    fd
+    lazygit
+    lazydocker
+    fastfetch
+    gcc
+    gnumake
+    nodejs_22
+    python3
+    yarn
+    cargo
+    rustc
+    nixfmt-rfc-style
+    statix
+    nixd
+
+    wl-clipboard
+    grim
+    slurp
+    libnotify
+    mako
+    xwayland-satellite
     inputs.noctalia.packages.${pkgs.system}.default # Noctalia from Flake input
   ];
 
@@ -65,14 +94,14 @@
       grep = "grep --color=auto";
       la = "ls -a";
       lr = "ls -R";
-      
+
       # Your tools
       vi = "nvim";
       vim = "nvim";
       svi = "sudoedit";
       nix-fish = "nix-shell --command fish";
       claude = "env SHELL=/run/current-system/sw/bin/bash claude";
-      
+
       rebuild = "sudo nixos-rebuild switch --flake ~/code/nixconf#nixos";
       clean = "nix-collect-garbage -d";
     };
