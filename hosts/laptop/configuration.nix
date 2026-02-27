@@ -1,22 +1,32 @@
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.initrd.kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
+  boot.initrd.kernelModules = [
+    "nvidia"
+    "nvidia_modeset"
+    "nvidia_uvm"
+    "nvidia_drm"
+  ];
   boot.kernelParams = [
-   "nvidia-drm.modeset=1" 
-      "nvidia-drm.fbdev=1"
+    "nvidia-drm.modeset=1"
+    "nvidia-drm.fbdev=1"
   ];
 
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
-  
+
   networking.wg-quick.interfaces = {
     wg0 = {
       configFile = "/etc/wireguard/wg0.conf";
@@ -24,7 +34,7 @@
     };
     wg1 = {
       configFile = "/etc/wireguard/wg1.conf";
-      autostart = false; 
+      autostart = false;
     };
   };
 
@@ -32,9 +42,9 @@
     packages = with pkgs; [
       noto-fonts
       noto-fonts-cjk-sans # Chinese/Japanese/Korean characters
-      noto-fonts-color-emoji    # The standard colorful emojis 🍎
+      noto-fonts-color-emoji # The standard colorful emojis 🍎
 
-      nerd-fonts.jetbrains-mono  
+      nerd-fonts.jetbrains-mono
       nerd-fonts.fira-code
       nerd-fonts.symbols-only
     ];
@@ -42,7 +52,7 @@
     fontconfig = {
       enable = true;
       defaultFonts = {
-        monospace = ["JetBrainsMono Nerd Font Mono" ];       
+        monospace = [ "JetBrainsMono Nerd Font Mono" ];
         emoji = [ "Noto Color Emoji" ];
       };
     };
@@ -69,7 +79,10 @@
     ];
   };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   nix.settings.download-buffer-size = 524288000;
   nixpkgs.config.allowUnfree = true;
 
@@ -86,7 +99,7 @@
     LC_TELEPHONE = "pt_BR.UTF-8";
     LC_TIME = "pt_BR.UTF-8";
   };
-  
+
   console.keyMap = "us-acentos";
 
   hardware.graphics.enable = true;
@@ -94,17 +107,17 @@
   programs.niri.enable = true;
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
-  stdenv.cc.cc.lib
-  zlib
-  glib
-  openssl
-  curl
+    stdenv.cc.cc.lib
+    zlib
+    glib
+    openssl
+    curl
   ];
-  
+
   programs.dconf.enable = true;
   programs.fish.enable = true;
 
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
     modesetting.enable = true;
@@ -121,23 +134,23 @@
 
   xdg.portal = {
     enable = true;
-    extraPortals = [ 
-      pkgs.xdg-desktop-portal-gtk 
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
       pkgs.xdg-desktop-portal-gnome
     ];
-    config.common.default = ["gtk"];
-    config.niri.default = pkgs.lib.mkForce [ "gnome" "gtk" ]; 
+    config.common.default = [ "gtk" ];
+    config.niri.default = pkgs.lib.mkForce [
+      "gnome"
+      "gtk"
+    ];
   };
 
   environment.sessionVariables = {
-    NIXOS_OZONE_WL = "1";               
+    NIXOS_OZONE_WL = "1";
     _JAVA_AWT_WM_NONREPARENTING = "1";
-    XDG_CURRENT_DESKTOP = "Niri"; 
+    XDG_CURRENT_DESKTOP = "Niri";
     XDG_SESSION_TYPE = "wayland";
 
-    EDITOR = "nvim";
-    VISUAL = "nvim";
-    
   };
 
   services.xserver.enable = false;
@@ -165,12 +178,19 @@
     pulse.enable = true;
   };
 
+  services.gvfs.enable = true;
+  services.udisks2.enable = true;
   users.users.falabretti = {
     isNormalUser = true;
     description = "falabretti";
-    extraGroups = [ "networkmanager" "wheel" "video" "input" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "video"
+      "input"
+    ];
     shell = pkgs.fish;
-    packages = [ 
+    packages = [
     ];
   };
 
@@ -182,11 +202,11 @@
 
     # Network
     wireguard-tools
-    
+
     glib
     gsettings-desktop-schemas
   ];
 
   # System state version
-  system.stateVersion = "25.11"; 
+  system.stateVersion = "25.11";
 }

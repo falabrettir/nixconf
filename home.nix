@@ -34,6 +34,7 @@
   home.sessionVariables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
+    GTK_THEME = "Adwaita-dark";
   };
 
   home.pointerCursor = {
@@ -44,6 +45,18 @@
     x11.enable = true;
   };
 
+  gtk = {
+    enable = true;
+    iconTheme = {
+      name = "Adwaita"; # Standard, reliable icons that DataGrip usually likes
+      package = pkgs.adwaita-icon-theme;
+    };
+    theme = {
+      name = "Adwaita-dark";
+      package = pkgs.gnome-themes-extra;
+    };
+  };
+
   home.packages = with pkgs; [
     alacritty
     vesktop
@@ -52,6 +65,7 @@
     inputs.zen-browser.packages.${pkgs.system}.default # Zen from Flake input
 
     nautilus
+    adwaita-icon-theme
 
     neovim
     git
