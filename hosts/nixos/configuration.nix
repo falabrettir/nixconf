@@ -27,16 +27,16 @@
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
 
-  networking.wg-quick.interfaces = {
-    wg0 = {
-      configFile = "/etc/wireguard/wg0.conf";
-      autostart = false;
-    };
-    wg1 = {
-      configFile = "/etc/wireguard/wg1.conf";
-      autostart = false;
-    };
-  };
+  # networking.wg-quick.interfaces = {
+  #   wg0 = {
+  #     configFile = "/etc/wireguard/wg0.conf";
+  #     autostart = false;
+  #   };
+  #   wg1 = {
+  #     configFile = "/etc/wireguard/wg1.conf";
+  #     autostart = false;
+  #   };
+  # };
 
   fonts = {
     packages = with pkgs; [
@@ -58,26 +58,26 @@
     };
   };
 
-  networking.hosts = {
-    "10.0.0.1" = [
-      "registry.driva"
-      "argocd.driva"
-      "redis.driva"
-      "rabbitmq.driva"
-      "selenium.driva"
-      "proxy-manager.driva"
-      "vaultwarden.driva"
-      "jenkins.driva"
-      "clickstack.driva"
-      "tickets.driva"
-    ];
-    "10.0.0.2" = [
-      "postgres.driva"
-    ];
-    "10.0.2.1" = [
-      "n8n-olympus.driva.io"
-    ];
-  };
+  # networking.hosts = {
+  #   "10.0.0.1" = [
+  #     "registry.driva"
+  #     "argocd.driva"
+  #     "redis.driva"
+  #     "rabbitmq.driva"
+  #     "selenium.driva"
+  #     "proxy-manager.driva"
+  #     "vaultwarden.driva"
+  #     "jenkins.driva"
+  #     "clickstack.driva"
+  #     "tickets.driva"
+  #   ];
+  #   "10.0.0.2" = [
+  #     "postgres.driva"
+  #   ];
+  #   "10.0.2.1" = [
+  #     "n8n-olympus.driva.io"
+  #   ];
+  # };
 
   nix.settings.experimental-features = [
     "nix-command"
@@ -177,6 +177,7 @@
 
   services.gvfs.enable = true;
   services.udisks2.enable = true;
+  services.netbird.enable = true;
   users.users.falabretti = {
     isNormalUser = true;
     description = "falabretti";
@@ -196,6 +197,7 @@
     # Core CLI
     claude-code
     bash
+    netbird
 
     # Network
     wireguard-tools
