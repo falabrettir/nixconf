@@ -201,6 +201,7 @@
 
     # Network
     wireguard-tools
+    vlc
 
     glib
     gsettings-desktop-schemas
