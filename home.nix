@@ -4,7 +4,9 @@
   inputs,
   ...
 }:
-
+let
+  repoPath = "/home/falabretti/code/nixconf/dotfiles";
+in
 {
   home.username = "falabretti";
   home.homeDirectory = "/home/falabretti";
@@ -13,24 +15,18 @@
 
   xdg.configFile = {
     "nvim" = {
-      source = ./dotfiles/nvim;
-      recursive = true;
+      source = config.lib.file.mkOutOfStoreSymlink "${repoPath}/nvim";
     };
 
     "noctalia" = {
-      source = ./dotfiles/noctalia;
-      recursive = true;
+      source = config.lib.file.mkOutOfStoreSymlink "${repoPath}/noctalia";
     };
 
-    "fastfetch" = {
-      source = ./dotfiles/fastfetch;
-      recursive = true;
-    };
-    "alacritty/alacritty.toml".source = ./dotfiles/alacritty/alacritty.toml;
-    "niri/config.kdl".source = ./dotfiles/niri/config.kdl;
-    "starship.toml".source = ./dotfiles/starship.toml;
+    # Apply to others you want to be live-mutable
+    "alacritty/alacritty.toml".source =
+      config.lib.file.mkOutOfStoreSymlink "${repoPath}/alacritty/alacritty.toml";
+    "starship.toml".source = config.lib.file.mkOutOfStoreSymlink "${repoPath}/starship.toml";
   };
-
   home.sessionVariables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
